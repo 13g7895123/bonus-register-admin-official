@@ -1,0 +1,22 @@
+name: Push-to-linode2
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy to linode
+    runs-on: ubuntu20.04
+
+  steps:
+    - name: Checkout the files
+      uses: actions/checkout@v2
+
+    - name: Deploy to Server 2
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.HOST_DNS }}
+        REMOTE_USER: ${{ secrets.USERNAME }}

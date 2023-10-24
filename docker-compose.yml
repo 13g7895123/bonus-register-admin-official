@@ -1,0 +1,16 @@
+#  host: 170.187.229.132:9055
+
+version: "3.4"
+services:
+ bonus-register-admin:
+   image: node:alpine
+   container_name: bonus-register-admin
+   entrypoint: /bin/sh
+   ports:
+     - 9055:8000
+   working_dir: /srv/app
+   volumes:
+     - type: bind
+       source: ./vue-app
+       target: /srv/app
+   tty: true
