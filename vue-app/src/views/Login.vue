@@ -37,16 +37,12 @@ import { ref, reactive } from 'vue'
 import axios from 'axios'
 import { useRouter } from "vue-router";
 import Swal from 'sweetalert2'
-import { useAuthStore } from '../stores/loginAuth.js';
-import { useLoginCheckStore } from '../stores/loginCheck';
 
 const ruleFormRef = ref()
 const apiUrl = ref()
 const apiParam = ref()
-const apiUrlPrefix = '/api/'
+const apiUrlPrefix = 'http://apix.mercylife.cc/api/bonus-register/admin/'
 const router = useRouter();
-const loginStore = useAuthStore();
-const loginCheck = useLoginCheckStore();
 
 const loginUser = ref({
     account: '',
@@ -81,20 +77,6 @@ const handleSubmit = (formEl) => {
                 sessionStorage.setItem('isLogin', true)
                 sessionStorage.setItem('loginTime', new Date().getTime())
                 sessionStorage.setItem('lastTime', new Date().getTime())
-
-                // localStorage.setItem('userId', id)
-                // localStorage.setItem('userAccount', account)
-                // localStorage.setItem('userName', name)
-                // localStorage.setItem('isAdmin', is_admin)
-
-                // loginStore.setAuth(true)
-                // loginStore.setUser(account)
-                // loginStore.setUserName(name)
-                // loginStore.setIsAdmin(is_admin)
-
-                // loginCheck.setIsLogin(true)
-                // loginCheck.setLoginTime(new Date().getTime())
-                // loginCheck.setLastTime(new Date().getTime())
 
                 Swal.fire({
                     title: '登入成功',

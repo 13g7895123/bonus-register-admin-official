@@ -20,8 +20,7 @@ export default defineConfig({
     port: 8000,
     proxy: {
       '/api': {
-        // target: 'http://pokemon.mercylife.cc/api/admin',
-        target: 'http://apix.mercylife.cc/api/bonus-register/admin',
+        target: 'http://apix.mercylife.cc/api/bonus-register/admin/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
