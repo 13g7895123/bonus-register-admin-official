@@ -143,7 +143,7 @@ import axios from 'axios';
 import { EditPen, Delete, QuestionFilled, Picture } from "@element-plus/icons-vue";
 import Swal from 'sweetalert2'
 import { useRouter } from "vue-router";
-import { domain } from '../config/common.js'
+import { domain, api_url } from '../config/common.js'
 import { useAuthStore } from "../stores/loginAuth";
 
 const tableData = ref([])
@@ -153,6 +153,7 @@ const show = ref(false)
 const editData = ref()
 const router = useRouter()
 const loginAuth = useAuthStore()
+const apiUrlPrefix = api_url
 
 // Api config
 const phpAction = 'server';
@@ -168,7 +169,7 @@ const page_index = ref(1),
 
 const getServer = async() => {
     let axiosData = (sessionStorage.getItem('isAdmin') != true) ? { userId: sessionStorage.getItem('userId') } : { userId: '' }
-    const { data: { success, data } } = await axios.post('/api/server.php?action=server', axiosData)
+    const { data: { success, data } } = await axios.post(apiUrlPrefix + 'server.php?action=server', axiosData)
 
     if (success){
         tableData.value = data
@@ -199,7 +200,7 @@ const handleDelete = async(row) => {
     const ajax_data = { id: id }
 
     const { data: { success, msg } } = await axios.post(
-        `/api/${phpAction}.php?action=delete_${phpAction}`,
+        `${apiUrlPrefix}${phpAction}.php?action=delete_${phpAction}`,
         ajax_data
     )
 
