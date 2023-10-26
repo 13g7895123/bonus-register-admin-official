@@ -95,7 +95,6 @@ import axios from 'axios';
 import { EditPen, Delete } from "@element-plus/icons-vue";
 import Swal from 'sweetalert2'
 import { useRouter } from "vue-router";
-import { useAuthStore } from "../stores/loginAuth";
 import { api_url } from '../config/common.js'
 
 const tableData = ref([])
@@ -103,8 +102,6 @@ const allTableData = ref([])
 const filterTableData = ref([])
 const show = ref(false)
 const editData = ref()
-const operation = ref()   // 0為編輯，1為新增
-const loginAuth = useAuthStore()
 const apiUrlPrefix = api_url
 
 // 分頁
@@ -113,8 +110,6 @@ const page_index = ref(1),
       page_total = ref(0),
       page_sizes = [5, 10, 15, 20],
       layout = "total, sizes, prev, pager, next, jumper"
-// 篩選
-const filterEngName = ref()
 
 const router = useRouter()
 
@@ -131,7 +126,6 @@ const getPlayers = async() => {
         tableData.value = data
         allTableData.value = data
         filterTableData.value = data
-        // console.log(tableData.value);
         setPaginations()
     }else{  // 取資料失敗即重整頁面
         // history.go(0)
