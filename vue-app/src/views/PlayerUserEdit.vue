@@ -92,7 +92,7 @@ const handleSubmit = (formEl) => {
         console.log(formData.value);        
         if (valid){
             const ajax_data = formData.value
-            const { data: { success, msg } } = await axios.post(`/api/player_user.php?action=edit_player_user`, ajax_data)
+            const { data: { success, msg } } = await axios.post(`${apiUrlPrefix}player_user.php?action=edit_player_user`, ajax_data)
 
             if (success){
                 Swal.fire({
