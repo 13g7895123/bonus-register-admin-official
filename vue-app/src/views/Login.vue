@@ -41,7 +41,8 @@ import Swal from 'sweetalert2'
 const ruleFormRef = ref()
 const apiUrl = ref()
 const apiParam = ref()
-const apiUrlPrefix = '/api/'
+// const apiUrlPrefix = '/api/'
+const apiUrlPrefix = 'http://apix.mercylife.cc/api/bonus-register/admin/'
 const router = useRouter();
 
 const loginUser = ref({
