@@ -96,6 +96,7 @@ import { EditPen, Delete } from "@element-plus/icons-vue";
 import Swal from 'sweetalert2'
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/loginAuth";
+import { api_url } from '../config/common.js'
 
 const tableData = ref([])
 const allTableData = ref([])
@@ -104,6 +105,7 @@ const show = ref(false)
 const editData = ref()
 const operation = ref()   // 0為編輯，1為新增
 const loginAuth = useAuthStore()
+const apiUrlPrefix = api_url
 
 // 分頁
 const page_index = ref(1),
@@ -123,7 +125,7 @@ onMounted(() => {
 const getPlayers = async() => {
 
     let axiosData = (sessionStorage.getItem('isAdmin') != true) ? { userId: sessionStorage.getItem('userId') } : { userId: '' }
-    const { data: { success, data } } = await axios.post('/api/player_user.php?action=player_user', axiosData)
+    const { data: { success, data } } = await axios.post(apiUrlPrefix + 'player_user.php?action=player_user', axiosData)
 
     if (success){
         tableData.value = data
@@ -153,7 +155,7 @@ const handleEdit = (row) => {
 const handleDelete = async(row) => {
     const { id } = row
     const ajax_data = { id: id }
-    const { data: { success, msg } } = await axios.post(`/api/player_user.php?action=delete_player_user`, ajax_data)
+    const { data: { success, msg } } = await axios.post(`${apiUrlPrefix}player_user.php?action=delete_player_user`, ajax_data)
 
     if (success){
         Swal.fire({
@@ -209,28 +211,7 @@ const closeModel = () => {
 }
 
 // 篩選
-const handleSort = () => {
-//     if (filterEngName.value == ''){
-
-//         Swal.fire({
-//             title: `請輸入藥品名`,
-//             icon: 'error',
-//             showConfirmButton: false,
-//             showCancelButton: false,
-//             timer: 2000,
-//         }).then(() => {
-//             getMedicine()
-//             return
-//         })
-//     }
-
-//     allTableData.value = filterTableData.value.filter((item) => {
-//         let eng_name = item.eng_name
-//         eng_name = eng_name.toUpperCase()
-//         return eng_name.includes(filterEngName.value.toUpperCase())
-//     })
-//     setPaginations();
-}
+const handleSort = () => {}
 
 </script>
 <style>

@@ -51,10 +51,11 @@ import { useRouter } from "vue-router";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useAuthStore } from "../stores/loginAuth";
+import { api_url } from '../config/common.js'
 
 const apiUrl = ref()
 const apiParam = ref()
-const apiUrlPrefix = ref('/api/')
+const apiUrlPrefix = api_url
 const dialogRef = ref()
 const nowUser = ref()
 const isAdmin = ref()
@@ -88,7 +89,7 @@ const getServer = async() => {    // 依操作者權限取得伺服器列表
         account: nowUser.value,     // 操作使用者帳號
     })
     apiParam.value = 'server_list'
-    apiUrl.value = `${apiUrlPrefix.value}${phpAction}.php?action=${apiParam.value}`
+    apiUrl.value = `${apiUrlPrefix}${phpAction}.php?action=${apiParam.value}`
     const { data: { success, data } } = await axios.post(apiUrl.value, serverData.value)
     if (success){
         let nameTempArr = []
@@ -112,7 +113,7 @@ const handleSubmit = (formEl) => {
         if (valid){
             const ajax_data = formData.value
             apiParam.value = `add_${phpAction}`
-            apiUrl.value = `${apiUrlPrefix.value}${phpAction}.php?action=${apiParam.value}`
+            apiUrl.value = `${apiUrlPrefix}${phpAction}.php?action=${apiParam.value}`
             const { data: { success, msg } } = await axios.post(apiUrl.value, ajax_data)
 
             if (success){
