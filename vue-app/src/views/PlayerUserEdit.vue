@@ -129,7 +129,7 @@ const handleCancel = () => {
 
 .date_column .el-input,
 .date_column .el-input__wrapper,
-.date_column .el-input .el-input__wrapper,
+.date_column *,
 .date_column .el-form-item__content{
     width: 100%;
 }
