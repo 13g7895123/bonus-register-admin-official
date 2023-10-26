@@ -37,12 +37,13 @@ import { ref, reactive } from 'vue'
 import axios from 'axios'
 import { useRouter } from "vue-router";
 import Swal from 'sweetalert2'
+import { apiUrl } from '../config/common.js'
 
 const ruleFormRef = ref()
 const apiUrl = ref()
 const apiParam = ref()
 // const apiUrlPrefix = '/api/'
-const apiUrlPrefix = 'http://apix.mercylife.cc/api/bonus-register/admin/'
+const apiUrlPrefix = apiUrl
 const router = useRouter();
 
 const loginUser = ref({
