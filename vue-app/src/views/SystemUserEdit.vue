@@ -45,21 +45,22 @@
     </el-card>
 </template>
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref,  onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useAuthStore } from "../stores/loginAuth";
-const loginAuth = useAuthStore()
+import { api_url } from '../config/common.js'
 
 const router = useRouter()
 const id = ref()
 const apiUrl = ref()
 const apiParam = ref()
-const apiUrlPrefix = ref('/api/')
+const apiUrlPrefix = api_url
 const dialogRef = ref()
 const nowUser = ref()
 const isAdmin = ref()
+const loginAuth = useAuthStore()
 let serverList = ref([])
 
 // Api config
@@ -84,7 +85,7 @@ onMounted(() => {
 const getData = async() => {
     const ajaxFormData = ref({ id: id.value })
     apiParam.value = `?action=get_${phpAction}`
-    apiUrl.value = `${apiUrlPrefix.value}${phpAction}.php${apiParam.value}`
+    apiUrl.value = `${apiUrlPrefix}${phpAction}.php${apiParam.value}`
 
     const { data: { success, data } } = await axios.post(apiUrl.value, ajaxFormData.value)
 
@@ -100,7 +101,7 @@ const handleSubmit = (formEl) => {
         console.log(formData.value);        
         if (valid){
             const ajax_data = formData.value
-            const { data: { success, msg } } = await axios.post(`/api/${phpAction}.php?action=edit_${phpAction}`, ajax_data)
+            const { data: { success, msg } } = await axios.post(`${apiUrlPrefix}${phpAction}.php?action=edit_${phpAction}`, ajax_data)
 
             if (success){
                 Swal.fire({
@@ -124,7 +125,7 @@ const getServer = async() => {    // 依操作者權限取得伺服器列表
         account: nowUser.value,     // 操作使用者帳號
     })
     apiParam.value = 'server_list'
-    apiUrl.value = `${apiUrlPrefix.value}${phpAction}.php?action=${apiParam.value}`
+    apiUrl.value = `${apiUrlPrefix}${phpAction}.php?action=${apiParam.value}`
     const { data: { success, data } } = await axios.post(apiUrl.value, serverData.value)
     if (success){
 

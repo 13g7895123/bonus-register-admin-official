@@ -54,12 +54,13 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { api_url } from '../config/common.js'
 
 const router = useRouter()
 const id = ref()
 const apiUrl = ref()
 const apiParam = ref()
-const apiUrlPrefix = ref('/api/')
+const apiUrlPrefix = api_url
 const dialogRef = ref()
 
 // Api config
@@ -90,7 +91,7 @@ onMounted(() => {
 const getData = async() => {
     const ajaxFormData = ref({ id: id.value })
     apiParam.value = `?action=get_${phpAction}`
-    apiUrl.value = apiUrlPrefix.value + `${phpAction}.php` + apiParam.value
+    apiUrl.value = apiUrlPrefix + `${phpAction}.php` + apiParam.value
 
     const { data: { success, data } } = await axios.post(apiUrl.value, ajaxFormData.value)
 
@@ -105,7 +106,7 @@ const handleSubmit = (formEl) => {
         if (valid){
             const ajax_data = formData.value
             apiParam.value = `?action=edit_${phpAction}`
-            apiUrl.value = apiUrlPrefix.value + `${phpAction}.php` + apiParam.value
+            apiUrl.value = apiUrlPrefix + `${phpAction}.php` + apiParam.value
             const { data: { success, msg } } = await axios.post(apiUrl.value, ajax_data)
 
             if (success){

@@ -90,13 +90,14 @@ import axios from 'axios';
 import { EditPen, Delete } from "@element-plus/icons-vue";
 import Swal from 'sweetalert2'
 import { useRouter } from "vue-router";
+import { api_url } from '../config/common.js'
 
 const tableData = ref([])
 const allTableData = ref([])
 const filterTableData = ref([])
 const show = ref(false)
 const editData = ref()
-const operation = ref()   // 0為編輯，1為新增
+const apiUrlPrefix = api_url
 
 // Api config
 const phpAction = 'system_admin';
@@ -113,7 +114,7 @@ const page_index = ref(1),
 const filterEngName = ref()
 
 const getSystemAdmin = async() => {
-    const { data: { success, data } } = await axios.post(`/api/${phpAction}.php?action=${phpAction}`)
+    const { data: { success, data } } = await axios.post(`${apiUrlPrefix}${phpAction}.php?action=${phpAction}`)
 
     if (success){
         tableData.value = data
@@ -144,7 +145,7 @@ const handleDelete = async(row) => {
     const ajax_data = { id: id }
 
     const { data: { success, msg } } = await axios.post(
-        `/api/${phpAction}.php?action=delete_${phpAction}`,
+        `${apiUrlPrefix}${phpAction}.php?action=delete_${phpAction}`,
         ajax_data
     )
 

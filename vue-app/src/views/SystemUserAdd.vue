@@ -49,15 +49,16 @@ import { useRouter } from "vue-router";
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useAuthStore } from "../stores/loginAuth";
-const loginAuth = useAuthStore()
+import { api_url } from '../config/common.js'
 
 const router = useRouter()
 const apiUrl = ref()
 const apiParam = ref()
-const apiUrlPrefix = ref('/api/')
+const apiUrlPrefix = api_url
 const dialogRef = ref()
 const nowUser = ref()
 const isAdmin = ref()
+const loginAuth = useAuthStore()
 let serverList = ref([])
 
 // Api config
@@ -83,7 +84,7 @@ const handleSubmit = (formEl) => {
         if (valid){
             const ajax_data = formData.value
             apiParam.value = 'server'
-            apiUrl.value = `${apiUrlPrefix.value}${phpAction}.php?action=add_${phpAction}`
+            apiUrl.value = `${apiUrlPrefix}${phpAction}.php?action=add_${phpAction}`
             const { data: { success, msg } } = await axios.post(apiUrl.value, ajax_data)
 
             if (success){

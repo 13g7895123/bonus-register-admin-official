@@ -25,12 +25,13 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router";
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { api_url } from '../config/common.js'
 
 const router = useRouter()
 const id = ref()
 const apiUrl = ref()
 const apiParam = ref()
-const apiUrlPrefix = ref('/api/')
+const apiUrlPrefix = api_url
 let imgUploadUrl = ref()
 const imgUrl = ref('')
 
@@ -48,7 +49,7 @@ onMounted(() => {
 const getData = async() => {
     const ajaxFormData = ref({ id: id.value })
     apiParam.value = `?action=get_bg_img`
-    apiUrl.value = apiUrlPrefix.value + `${phpAction}.php` + apiParam.value
+    apiUrl.value = apiUrlPrefix + `${phpAction}.php` + apiParam.value
 
     const { data: { success, data } } = await axios.post(apiUrl.value, ajaxFormData.value)
 
@@ -85,10 +86,6 @@ const handleSuccess = (response, file, fileList, rowInfo) => {
         })
     }
 }
-
-// function handleChange(){
-//     this.$refs.upload.submit();
-// }
 
 const handleCancel = () => {
     router.push({ path: '/server' })
