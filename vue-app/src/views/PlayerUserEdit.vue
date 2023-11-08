@@ -89,7 +89,7 @@ const getData = async() => {
 const handleSubmit = (formEl) => {
     if (!formEl) return;
     formEl.validate(async(valid) => {
-        console.log(formData.value);        
+        // console.log(formData.value);        
         if (valid){
             const ajax_data = formData.value
             const { data: { success, msg } } = await axios.post(`${apiUrlPrefix}player_user.php?action=edit_player_user`, ajax_data)
